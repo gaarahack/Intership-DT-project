@@ -2,6 +2,10 @@
 
 This is a simple TODO application built using Node.js, Express, and EJS. The application allows users to create, read, update, and delete tasks.
 
+## WARING 
+THIS IS JUST A SAMPLE PAGE AUTHENTICAL AND VERIFICATION IS NOT COMPLETED. AS , IT TAKE LONG TIME, 
+IN THESE PROJECT LIST DATA TYPE IS USED TO STORE THE TASK, YOU CAN REMOVE THE LIST DATA TYPE AND CONFIG MONGODB.
+
 ## Project Structure
 .env
  package.json
