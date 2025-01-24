@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO - CRUD</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body,
+      html {
+        height: 100%;
+        width: 100%;
+      }
+      .main {
+        height: 100vh;
+        width: 100%;
+        background-color: cornflowerblue;
+      }
+      .nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10vh;
+        width: 100%;
+        background-color: #fff;
+      }
+      .navcenter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        height: 90vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .formholder {
+        height: 70vh;
+        width: 50vw;
+        background-color: palegoldenrod;
+        display: flex;
+        flex-direction: column;
+        gap: 2vh;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .inputBox {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      .inputBox input {
+        padding: 15px 20px;
+        outline: none;
+        background: transparent;
+        border-radius: 5px;
+        color: #212121;
+        border: 1px solid #212121;
+        font-size: 1em;
+      }
+      .inputBox span {
+        position: absolute;
+        left: 0;
+        font-size: 0.7em;
+        transform: translateX(14px) translateY(-7.5px);
+        padding: 0 6px 1px 5px;
+        border-radius: 2px;
+        background: #e8e8e8;
+        letter-spacing: 1px;
+        border: 1px solid #212121;
+        color: #212121;
+      }
+      .taskadder ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      .taskslist {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        font-size: 1.2em;
+        background-color: #fff;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+        cursor: pointer;
+      }
+      .taskslist:hover {
+        background-color: #f0f0f0;
+        transform: scale(1.02);
+      }
+      .taskslist .actions {
+        display: none;
+        gap: 10px;
+      }
+      .taskslist:hover .actions {
+        display: flex;
+      }
+      .actions button {
+        padding: 5px 10px;
+        font-size: 0.8em;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      .actions .delete {
+        background-color: red;
+        color: #fff;
+      }
+      .actions .update {
+        background-color: green;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="nav">
+        <div class="navcenter">
+          <h1>TODO - CRUD - DASHBOARD</h1>
+        </div>
+      </div>
+      <div class="container">
+        <div class="formholder">
+          <div class="taskadder">
+            <ul>
+              <% tasks.forEach((task, index) => { %>
+              <li class="taskslist" data-id="<%= index %>">
+                <span><%= task %></span>
+                <div class="actions">
+                  <button class="update">Update</button>
+                  <button class="delete">Delete</button>
+                </div>
+              </li>
+              <% }); %>
+            </ul>
+          </div>
+          <form action="/dashboard" method="post">
+            <div class="inputBox">
+              <input
+                placeholder="Write here..."
+                type="text"
+                name="task"
+                spellcheck="true"
+                required="true"
+              />
+              <span>Enter task :</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.querySelectorAll('.taskslist .delete').forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+          const taskId = event.target.closest('.taskslist').dataset.id;
+          fetch(`/delete/${taskId}`, { method: 'DELETE' }).then(() => location.reload());
+        });
+      });
+
+      document.querySelectorAll('.taskslist .update').forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+          const taskId = event.target.closest('.taskslist').dataset.id;
+          const newTask = prompt('Update your task:');
+          if (newTask) {
+            fetch(`/update/${taskId}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ task: newTask }),
+            }).then(() => location.reload());
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

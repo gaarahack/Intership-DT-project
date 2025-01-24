@@ -1,0 +1,62 @@
+# TODO - CRUD Project
+
+This is a simple TODO application built using Node.js, Express, and EJS. The application allows users to create, read, update, and delete tasks.
+
+## Project Structure
+.env
+ package.json
+  readme 
+  server.js
+   views/
+    dashboard.ejs
+     todo.ejs
+
+
+## Installation
+
+1. Clone the repository.
+
+2. Navigate to the project directory:
+
+cd intership-dt
+
+3. Install the dependencies:
+
+npm install
+
+
+## Configuration
+
+Create a .env file in the root directory and add the following
+configuration:
+
+PORT=3000
+
+## Running the Application
+Start the application using the following command:
+
+npm start
+
+The application will be running on http://localhost:3000.
+
+## Features
+Create Task: Add a new task to the TODO list.
+Read Tasks: View all tasks in the TODO list.
+Update Task: Update an existing task.
+Delete Task: Delete a task from the TODO list.
+
+
+
+## Routes
+GET /: Redirects to the TODO page.
+GET /todo: Renders the TODO page.
+POST /todo: Handles user login and redirects to the dashboard.
+GET /dashboard: Renders the dashboard with the list of tasks.
+POST /dashboard: Adds a new task to the list.
+DELETE /delete/:id: Deletes a task by ID.
+PUT /update/:id: Updates a task by ID.
+
+
+## Views
+todo.ejs: The login page where users can sign in.
+dashboard.ejs: The dashboard page where users can manage their tasks.
